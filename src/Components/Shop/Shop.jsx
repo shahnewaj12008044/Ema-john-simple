@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './Shop.css'
 import Product from '../product/Product';
 import Cart from '../Cart/Cart';
+import { addToDb, getShoppingCart } from '../../utilities/fakedb';
 
 const Shop = () => {
     const [products, setProducts] = useState([]);
@@ -11,9 +12,52 @@ const Shop = () => {
          .then(res => res.json())
           .then(data => setProducts(data))
     },[])
+
+    useEffect(()=>{
+        // console.log('Products',products)
+        const storedCart = getShoppingCart();
+        const savedCart = [];
+        //step:1 get the id 
+        for(const id in storedCart){
+            //step 2 : get the product by using id
+            const addedProduct = products.find(product => product.id === id)
+            //step 3: get quantity of the product
+           if(addedProduct){
+            const quantity = storedCart[id];
+           addedProduct.quantity = quantity;
+           //step:4 add the added product to the saved cart
+           savedCart.push(addedProduct)
+           }
+           //step:5 set the cart
+           setCart(savedCart)
+        }
+
+    },[products])
+    //=========solve given by chatgpt(i love her)
+    // useEffect(() => {
+    //     const storedCart = getShoppingCart();
+
+    //     for (const id in storedCart) {
+    //         const addedProduct = products.find(product => product.id === id);
+
+    //         // Check if addedProduct is defined before accessing its properties
+    //         if (addedProduct) {
+    //             const quantity = storedCart[id];
+    //             addedProduct.quantity = quantity;
+    //             console.log(addedProduct);
+
+    //             // Now you can safely access properties of addedProduct
+    //             // console.log('Product Name:', addedProduct.name);
+    //             // console.log('Product Price:', addedProduct.price);
+    //             // ... access other properties as needed
+    //         }
+    //     }
+    // }, [products]); 
+
     const handleAddToCart = (product) =>{
          const newCart = [...cart,product]
-        setCart(newCart)
+        setCart(newCart);
+        addToDb(product.id);
     }
     return (
         <div className='shop-container'>
