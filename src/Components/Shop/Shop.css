@@ -8,3 +8,17 @@
     gap:45px;
     margin:50px;
 }
+.link-proceed{
+    text-decoration: none;
+}
+.btn-order{
+    width:99%;
+    height:56px;
+    color:white;
+    font-size: 21px;
+    padding:5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(253, 184, 55);
+}

@@ -5,3 +5,18 @@
     top:0;
     border-radius: 10px;
 }
+.btn-clear-cart{
+    width:99%;
+    height:56px;
+    margin:10px auto;
+    border-radius:4px;
+    display: flex;
+    justify-content: space-between;
+    background: #FF3030;
+    color:white;
+    font-size: 21px;    
+    align-items: center;
+}
+.btn-clear-cart:hover{
+    background-color: #d53434;
+}
